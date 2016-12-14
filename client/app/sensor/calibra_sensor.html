@@ -1,0 +1,44 @@
+<div class="">
+
+  <div class="page-title">
+    <div class="title_left">
+      <h3>Sensores</h3>
+    </div>
+  </div>
+
+  <div class="x_panel">
+    <div class="x_title">
+      <h2>Calibração da célula de carga</h2>
+      <div class="clearfix"></div>
+    </div>
+    <div class="x_content">
+      <br>
+      <span ng-show="!$ctrl.iniciado">Certifique-se de que não existe nada em cima da célula de carga e então clique no botão abaixo para iniciar o processo de calibração.</span>
+      <span ng-show="$ctrl.aguardando">Aguarde um instante enquanto a primeira etapa da calibração é realizada. Este processo dura aproximadamente 5 segundos.</span>
+      <span ng-show="$ctrl.calibrado">A célula de carga foi calibrada com sucesso.</span>
+      <br><br>
+      <button type="submit" class="btn btn-success" ng-click="$ctrl.inicia()" ng-show="!$ctrl.iniciado">Iniciar calibração</button>
+
+      <form ng-show="($ctrl.iniciado && !$ctrl.aguardando) && !$ctrl.calibrado" class="form form-horizontal form-label-left" name="form" ng-submit="$ctrl.calibra(form)" novalidate>
+        <div class="form-group" ng-class="{ 'has-success': form.peso.$valid && $ctrl.submitted,
+                                            'has-error': form.peso.$invalid && $ctrl.submitted }">
+          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="peso">Peso <span class="required">*</span>
+          </label>
+          <div class="col-md-6 col-sm-6 col-xs-12">
+            <input mongoose-error type="text" name="peso" ng-model="$ctrl.peso" required="required" class="form-control col-md-7 col-xs-12" data-parsley-id="3576"><ul class="parsley-errors-list" id="parsley-id-3576"></ul>
+          </div>
+        </div>
+
+        <div class="ln_solid"></div>
+        <div class="form-group">
+          <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+            <button class="btn btn-primary" ui-sref="sensor">Cancelar</button>
+            <button type="submit" class="btn btn-success">Calibrar</button>
+          </div>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+</div>

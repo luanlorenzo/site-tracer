@@ -1,0 +1,33 @@
+<div class="">
+
+  <div class="page-title">
+    <div class="title_left">
+      <h3>Sensores</h3>
+    </div>
+  </div>
+
+  <div class="x_panel">
+    <div class="x_title">
+      <h2>Remover <small>Removendo sensor...</small></h2>
+      <div class="clearfix"></div>
+    </div>
+    <div class="x_content">
+      <div class="row">
+        <span>Você tem certeza que deseja excluir o sensor <strong>{{$ctrl.sensor.name}}</strong>?</span>
+        <br>
+      </div>
+      <div class="clearfix"></div>
+      <br>
+      <div class="row">
+        <div class="form-group">
+          <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-0">
+            <button class="btn btn-primary">Cancelar</button>
+            <button type="submit" class="btn btn-success" ng-click="$ctrl.removeSensor()">Sim</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>

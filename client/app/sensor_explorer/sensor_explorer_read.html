@@ -1,0 +1,86 @@
+<div class="">
+
+  <div class="page-title">
+    <div class="title_left">
+      <h3>Leituras de sensor</h3>
+    </div>
+  </div>
+
+  <div class="x_panel">
+    <div class="x_title">
+      <h2>Sensor: {{$ctrl.sensor.name}}</h2>
+      <div class="clearfix"></div>
+      <span>Selecione um período abaixo para visualizar as leituras do sensor selecionado.</span>
+    </div>
+
+    <div class="col-md-4 col-sm-4 col-xs-12">
+      <form class="form-horizontal">
+        <div class="form-group">
+          <label class="col-sm-2 control-label">Ińicio</label>
+          <div class="col-sm-10">
+            <p class="input-group">
+              <input type="text" class="form-control" datetime-picker="dd/MM/yyyy HH:mm" ng-model="$ctrl.dates.date_start" is-open="$ctrl.open.date_start" />
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="$ctrl.openCalendar($event, 'date_start')"><i class="fa fa-calendar"></i></button>
+              </span>
+            </p>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">Fim</label>
+          <div class="col-sm-10">
+            <p class="input-group">
+              <input type="text" class="form-control" datetime-picker="dd/MM/yyyy HH:mm" ng-model="$ctrl.dates.date_end" is-open="$ctrl.open.date_end" />
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="$ctrl.openCalendar($event, 'date_end')"><i class="fa fa-calendar"></i></button>
+              </span>
+            </p>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-md-6 col-sm-6 col-xs-12">
+            <button class="btn btn-primary" ng-click="$ctrl.loadData()">Visualizar leituras</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="x_panel">
+
+    <uib-tabset active="active">
+      <uib-tab index="0" heading="Tabela">
+        <div class="x_content">
+          <div class="col-md-4 col-sm-4 col-xs-12">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Data</th>
+                  <th>Leitura</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="sensor_data in $ctrl.sensor_data">
+                  <td>{{$index+1}}</td>
+                  <td>{{sensor_data.date | date:'dd/MM/yyyy HH:mm'}}</td>
+                  <td>{{sensor_data.value | number: 2}} {{$ctrl.sensor.unit}}</td>
+                </tr>
+              </tbody>
+            </table>
+            <span ng-show="$ctrl.sensor_data.length > 0">Foram encontradas {{$ctrl.sensor_data.length}} leituras(s) neste período.</span>
+          </div>
+        </div>
+      </uib-tab>
+      <uib-tab index="1" heading="Gráficos">
+        <div id="chart_area" class="col-md-11 col-sm-11 col-xs-11" style="padding-left: 0; padding-right: 0;">
+          <canvas id="line" class="chart chart-line" chart-data="$ctrl.data"
+            chart-labels="$ctrl.labels" chart-legend="true" chart-series="$ctrl.series">
+          </canvas>
+        </div>
+    </uib-tab>
+  </uib-tabset>
+
+</div>
+
+</div>
