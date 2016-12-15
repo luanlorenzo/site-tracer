@@ -18,6 +18,93 @@ export default function(app) {
 
   function task() {
     
+    function handleSensor(sensores, index, max)
+    {
+      if(index == max)
+        return;
+
+      SensorData.find({
+        sensor: sensores[index]._id
+      })
+      .sort({
+        'date': -1
+      })
+      .exec()
+      .then(function (sDatas) {
+
+        var baseUrl = 'http://150.162.232.45:8080/tracer.php?idModulo=' + sensores[index].idModulo + '&idSensor=' + sensores[index].idSensor;
+        if(sDatas.length >= 1) {
+          var lastRead      = sDatas[0],
+              lastReadDate  = lastRead.date;
+
+          var dateStr = moment(lastReadDate).format('YYYY-MM-DD HH:mm:ss');
+
+          baseUrl += '&data=' + dateStr;
+          
+        }
+
+        request(baseUrl, function (error, response, body) {
+          if (!error && response.statusCode == 200) {
+            
+            var result = JSON.parse(body);
+            if(result) {
+              var count = result.data.length;
+              
+              if(count > 0) {
+                var toAdd = [];
+                for(var rIndex in result.data)
+                {
+                  var item = result.data[rIndex];
+                  var date = date = moment(item.date);
+
+                  var sensorData = new SensorData();
+                  sensorData.date = date;
+                  sensorData.sensor = sensores[index]._id;
+                  sensorData.value = item.value;
+                  toAdd.push(sensorData);
+                }
+                SensorData.create(toAdd)
+                .then(function (res) {
+
+                  for(var i = 0; i < res.length; i++) {
+                    socketio.sockets.emit('data_arrived:' + res[i].sensor, res[i]);
+                  }
+
+                  var novoIndex = index + 1;
+                  handleSensor(sensores, novoIndex, max);
+
+                });
+              }
+              else
+              {
+                var novoIndex = index + 1;
+                handleSensor(sensores, novoIndex, max);
+              }
+
+            }
+          }
+          else {
+            console.log('Houve uma falha na obtençao dos dados...');
+            console.log(error);
+          }
+
+        });
+
+        
+
+
+      });
+    }
+
+    Sensor.find()
+    .exec()
+    .then(function (results) {
+      if(results.length > 0)
+        handleSensor(results, 0, results.length);  
+
+    });
+
+    /*
     SensorData.find()
     .sort({
       'date': -1
@@ -51,27 +138,7 @@ export default function(app) {
               handleLeituraRecursive(result.data, 0);
             }
 
-            /*for (var i = 0; i < count; i++) {
-              var leitura = result.data[i];
-              
-              //Obtem os dados
-              var leitData = leitura['date'];
-              console.log('Data: ' + leitData);
-              leitura = _.omit(leitura, ['date']);
-              
-              Sensor.find({
-                  alias: { $in: _.keys(leitura) }
-                })
-                .exec()
-                .then(function (sensores) {
-                  for(var sIndex in sensores) {
-                    var _data = moment(leitData);
-                    _data.add(3, 'hour');
-                    addSensorData(sensores[sIndex], leitura[sensores[sIndex].alias], _data);
-                  }
-                });
-            }*/
-
+            
           }
         }
         else {
@@ -165,12 +232,12 @@ export default function(app) {
       }
 
     });
-
+    */
     
 
   }
 
-  var textSched = later.parse.text('every 2 min');
+  var textSched = later.parse.text('every 30 sec');
   var timer = later.setInterval(task, textSched);
 }
 

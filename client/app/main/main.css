@@ -37,3 +37,8 @@
 .title:hover {
   text-decoration: none;
 }
+
+.row-logos {
+  padding-right: 15px;
+  padding-left: 10px;
+}

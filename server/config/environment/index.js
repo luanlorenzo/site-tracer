@@ -3,7 +3,7 @@
 var path = require('path');
 var _ = require('lodash');
 
-process.env.NODE_ENV = 'production';
+//process.env.NODE_ENV = 'production';
 
 function requiredProcessEnv(name) {
   if (!process.env[name]) {
@@ -21,7 +21,7 @@ var all = {
   root: path.normalize(__dirname + '/../../..'),
 
   // Server port
-  port: process.env.PORT || 7000,
+  port: process.env.PORT || 6000,
 
   // Server IP
   ip: process.env.IP || '0.0.0.0',

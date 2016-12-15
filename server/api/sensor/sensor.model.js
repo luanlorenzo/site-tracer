@@ -4,6 +4,8 @@ import mongoose from 'mongoose';
 
 var SensorSchema = new mongoose.Schema({
   name: String,
+  idModulo: Number,
+  idSensor: Number,
   info: String,
   alias: String,
   unit: String,
