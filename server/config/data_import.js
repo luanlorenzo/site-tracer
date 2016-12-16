@@ -60,7 +60,18 @@ export default function(app) {
                   var sensorData = new SensorData();
                   sensorData.date = date;
                   sensorData.sensor = sensores[index]._id;
-                  sensorData.value = item.value;
+                  
+                  if(sensores[index].sensorId == 100)
+                  {
+                    sensorData.value = item.valorCorrente;
+                    sensorData.value2 = item.valorTensao;
+                    console.log('Obteve tracer! ' + item.valorCorrente + " " item.valorTensao);
+                  }
+                  else
+                  {
+                    sensorData.value = item.value;
+                  }
+
                   toAdd.push(sensorData);
                 }
                 SensorData.create(toAdd)

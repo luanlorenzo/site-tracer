@@ -6,6 +6,7 @@ import Sensor from '../sensor/sensor.model';
 var SensorDataSchema = new mongoose.Schema({
   date: Date,
   value: String,
+  value2: String,
   sensor: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Sensor'

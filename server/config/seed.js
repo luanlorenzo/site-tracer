@@ -60,6 +60,12 @@ Sensor.find({}).remove()
       idModulo: 0,
       idSensor: 6,
       unit: 'W/m²'
+    },{
+      name: 'Modulo Convencional - Tracer',
+      alias: 'mod_conv_tracer',
+      idModulo: 1,
+      idSensor: 100,
+      unit: 'W/m²'
     }).then(() => {
       Sensor.findOne().exec()
         .then(sensor => {
