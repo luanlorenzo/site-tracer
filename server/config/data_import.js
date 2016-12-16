@@ -65,7 +65,7 @@ export default function(app) {
                   {
                     sensorData.value = item.valorCorrente;
                     sensorData.value2 = item.valorTensao;
-                    console.log('Obteve tracer! ' + item.valorCorrente + " " item.valorTensao);
+                    console.log('Obteve tracer! ' + item.valorCorrente + " " + item.valorTensao);
                   }
                   else
                   {
