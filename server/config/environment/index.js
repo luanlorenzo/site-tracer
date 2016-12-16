@@ -3,7 +3,7 @@
 var path = require('path');
 var _ = require('lodash');
 
-process.env.NODE_ENV = 'production';
+//process.env.NODE_ENV = 'production';
 
 function requiredProcessEnv(name) {
   if (!process.env[name]) {
