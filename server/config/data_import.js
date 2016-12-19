@@ -247,7 +247,7 @@ export default function(app) {
 
   }
 
-  var textSched = later.parse.text('every 30 sec');
+  var textSched = later.parse.text('every 1 min');
   var timer = later.setInterval(task, textSched);
 }
 
