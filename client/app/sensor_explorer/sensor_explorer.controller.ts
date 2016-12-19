@@ -75,7 +75,14 @@
         var _data = [];
         for (let i = (this.sensor_data.length - 1); i >= 0 ; i--) {
             _data.push(this.sensor_data[i].value);
-            this.labels.push(this.$filter('date')(this.sensor_data[i].date, 'dd/MM/yyyy HH:mm'));
+            if(this.sensor.idSensor == 100)
+            {
+              this.labels.push(this.sensor_data[i].value2);
+            }
+            else
+            {
+              this.labels.push(this.$filter('date')(this.sensor_data[i].date, 'dd/MM/yyyy HH:mm'));
+            }
         }
         this.data.push(_data);
 

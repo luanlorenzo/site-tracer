@@ -25,7 +25,7 @@
             </thead>
             <tbody>
               <tr ng-repeat="sensor in $ctrl.sensors">
-                <td>{{sensor.name}}</td>
+                <td><a href="" ui-sref="sensor_explorer_read({id: '{{sensor._id}}'})">{{sensor.name}}</a></td>
                 <td>
                   <button class="btn btn-xs btn-default" ui-sref="sensor_explorer_read({id: '{{sensor._id}}'})"><i class="fa fa-search"></i></button>
                 </td>

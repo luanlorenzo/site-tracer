@@ -11,7 +11,7 @@
 	$db 	  = "bancoprocef";
 
 	$json = array();
-	$data = array();
+	$_data = array();
 
 	//connection to the database
 	$dbhandle = mysql_connect($hostname, $username, $password) 
@@ -69,7 +69,7 @@
 				'valorCorrente' 				=> utf8_encode($row['Valor_Corrente']),
 				'valorTensao' 				=> utf8_encode($row['Valor_Tensao']),
 			);
-			array_push($data, $r);
+			array_push($_data, $r);
 			//print_r($row);
 		}
 	}
@@ -106,12 +106,12 @@
 				'idSensor' 				=> utf8_encode($row['Id_Sensor']),
 				'value' 				=> utf8_encode($row['Valor_Leitura'])
 			);
-			array_push($data, $r);
+			array_push($_data, $r);
 			//print_r($row);
 		}
 	}
 
-	$json['data'] = $data;
+	$json['data'] = $_data;
 
 	echo json_encode($json);
 ?>

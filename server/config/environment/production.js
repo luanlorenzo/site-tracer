@@ -9,7 +9,7 @@ module.exports = {
           undefined,
 
   // Server port
-  port:   8000,
+  port:   8500,
 
   // MongoDB connection options
   mongo: {

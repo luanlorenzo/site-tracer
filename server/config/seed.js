@@ -61,9 +61,33 @@ Sensor.find({}).remove()
       idSensor: 6,
       unit: 'W/m²'
     },{
-      name: 'Modulo Convencional - Tracer',
+      name: 'Modulo Convencional - Corrente x Tensão',
       alias: 'mod_conv_tracer',
       idModulo: 1,
+      idSensor: 100,
+      unit: 'W/m²'
+    },{
+      name: 'Módulo Vidro e Silicone - Corrente x Tensão',
+      alias: 'mod_vidsilicone_tracer',
+      idModulo: 2,
+      idSensor: 100,
+      unit: 'W/m²'
+    },{
+      name: 'Módulo Vidro e EVA - Corrente x Tensão',
+      alias: 'mod_videva_tracer',
+      idModulo: 3,
+      idSensor: 100,
+      unit: 'W/m²'
+    },{
+      name: 'Módulo Semiflexivel - Corrente x Tensão',
+      alias: 'mod_semiflex_tracer',
+      idModulo: 4,
+      idSensor: 100,
+      unit: 'W/m²'
+    },{
+      name: 'Módulo PU - Corrente x Tensão',
+      alias: 'mod_pu_tracer',
+      idModulo: 5,
       idSensor: 100,
       unit: 'W/m²'
     }).then(() => {
