@@ -14,6 +14,9 @@ import moment from 'moment';
 import SensorData from './sensor_data.model';
 import Sensor from '../sensor/sensor.model';
 
+import json2csv from 'json2csv';
+import fs from 'fs';
+
 function respondWithResult(res, statusCode) {
   statusCode = statusCode || 200;
   return function(entity) {
@@ -109,16 +112,66 @@ export function receive(req, res) {
 // Gets a list of SensorDatas with filters
 export function getSensorData(req, res) {
 
-  SensorData.find({
-      'sensor': req.query.id,
-      'date': { '$gte': req.query.date_start, '$lte': req.query.date_end}
-  })
-    .sort({
-      'date': -1
+  Sensor.findById(req.query.id).exec()
+    .then(sensor => {
+
+      SensorData.find({
+          'sensor': req.query.id,
+          'date': { '$gte': req.query.date_start, '$lte': req.query.date_end}
+      })
+      .sort({
+        'date': 1
+      })
+      .exec()
+      .then(function (entity) {
+        var ret = {};
+        ret.results = entity;
+
+        var dataToCsv = [];
+        for(var i = 0; i < entity.length; i++)
+        {
+          dataToCsv.push({
+            corrente: entity[i].value,
+            tensao: entity[i].value2,
+            data: moment(entity[i].date).format('D/MM/YYYY HH:mm:ss')
+          });
+        }
+
+        var fields = ['corrente', 'tensao', 'data'];
+        var csv = json2csv({ data: dataToCsv, fields: fields });
+        var timestamp = new Date().getTime();
+        var fileName = sensor.alias + '_' + timestamp + '.csv';
+        fs.writeFile('files/' + fileName, csv, function(err) {
+          if (err) throw err;
+          console.log('file saved');
+        });
+        ret.csvFilename = fileName; 
+
+        res.status(200).json(ret);
+      })
+      .catch(handleError(res));
+
     })
-    .exec()
-    .then(respondWithResult(res))
-    .catch(handleError(res));
+    .catch(err => {
+      console.log(err);
+    });
+
+  
+}
+
+export function downloadCsv(req, res) {
+
+  if(req.params.filename)
+  { 
+    res.sendfile(req.params.filename, {root: './files'});
+  }
+  else
+  {
+    res.status(200).json({error: 'Especifique o arquivo CSV que deseja baixar.'});
+  }
+
+  
+
 }
 
 export function getLastRead(req, res) {

@@ -10,6 +10,9 @@ import Sensor from '../api/sensor/sensor.model';
 import SensorData from '../api/sensor_data/sensor_data.model';
 import request from 'request';
 
+import json2csv from 'json2csv';
+import fs from 'fs';
+
 import later from 'later';
 
 export default function(app) {
@@ -17,7 +20,7 @@ export default function(app) {
   var socketio = app.get('socketio');
 
   function task() {
-    
+
     function handleSensor(sensores, index, max)
     {
       if(index == max)
@@ -99,9 +102,6 @@ export default function(app) {
           }
 
         });
-
-        
-
 
       });
     }
@@ -247,7 +247,22 @@ export default function(app) {
 
   }
 
+  function taskClearFiles()
+  {
+    fs.readdir('./files', (err, files) => {
+      files.forEach(file => {
+        if(file != files[files.length-1])
+        {
+          fs.unlink('./files/' + file);
+        }
+      });
+    })
+  }
+
   var textSched = later.parse.text('every 1 min');
   var timer = later.setInterval(task, textSched);
+
+  var textSched2 = later.parse.text('every 1 min');
+  var timer2 = later.setInterval(taskClearFiles, textSched2);
 }
 

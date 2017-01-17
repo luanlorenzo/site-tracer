@@ -67,7 +67,8 @@
         }
       })
       .then(response => {
-        this.sensor_data = response.data;
+        this.sensor_data = response.data.results;
+        this.downloadCsvLink = response.data.csvFilename;
         this.series = [this.sensor.name];
         this.data = [];
         this.labels = [];
