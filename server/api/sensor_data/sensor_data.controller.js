@@ -138,7 +138,12 @@ export function getSensorData(req, res) {
         }
 
         var fields = ['corrente', 'tensao', 'data'];
-        var csv = json2csv({ data: dataToCsv, fields: fields });
+        var csv = json2csv({ 
+          data: dataToCsv, 
+          fields: fields,
+          del: ';'
+        });
+
         var timestamp = new Date().getTime();
         var fileName = sensor.alias + '_' + timestamp + '.csv';
         fs.writeFile('files/' + fileName, csv, function(err) {
