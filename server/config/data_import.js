@@ -23,6 +23,8 @@ export default function(app) {
 
     function handleSensor(sensores, index, max)
     {
+      console.log("Handling sensor: " + sensores[index]._id);
+
       if(index == max)
         return;
 
@@ -45,6 +47,8 @@ export default function(app) {
           baseUrl += '&data=' + dateStr;
           
         }
+
+        console.log(baseUrl);
 
         request(baseUrl, function (error, response, body) {
           if (!error && response.statusCode == 200) {
