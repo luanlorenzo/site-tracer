@@ -23,7 +23,6 @@ export default function(app) {
 
     function handleSensor(sensores, index, max)
     {
-      console.log("Handling sensor: " + sensores[index]._id);
 
       if(index == max)
         return;
