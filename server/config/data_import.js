@@ -250,12 +250,17 @@ export default function(app) {
   function taskClearFiles()
   {
     fs.readdir('./files', (err, files) => {
-      files.forEach(file => {
-        if(file != files[files.length-1])
-        {
-          fs.unlink('./files/' + file);
-        }
-      });
+
+      if(files)
+      {
+          files.forEach(file => {
+          if(file != files[files.length-1])
+          {
+            fs.unlink('./files/' + file);
+          }
+        });
+      }
+
     })
   }
 
