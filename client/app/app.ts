@@ -20,6 +20,13 @@ angular.module('siteCurApp', [
       .otherwise('/');
 
     ChartJsProvider.setOptions({ colours : [ '#803690', '#00ADF9', '#DCDCDC', '#46BFBD', '#FDB45C', '#949FB1', '#4D5360'] });
+    Chart.defaults.global.legend = {
+      labels: {
+        generateLabels: function (chart) {
+          console.log(chart);
+        }
+      }
+    };
 
     $locationProvider.html5Mode(true);
   }).

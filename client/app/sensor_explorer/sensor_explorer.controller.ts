@@ -72,6 +72,13 @@
         this.series = [this.sensor.name];
         this.data = [];
         this.labels = [];
+        this.options = {
+          labels: {
+            generateLabels: function (chart) {
+              console.log(chart);
+            }
+          }
+        };
 
         var _data = [];
         for (let i = 0; i < this.sensor_data.length ; i++) {
