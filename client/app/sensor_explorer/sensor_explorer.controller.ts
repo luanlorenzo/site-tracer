@@ -74,7 +74,7 @@
         this.labels = [];
 
         var _data = [];
-        for (let i = 0; i < this.sensor_data.length ; i--) {
+        for (let i = 0; i < this.sensor_data.length ; i++) {
             _data.push(this.sensor_data[i].value);
             if(this.sensor.idSensor == 100)
             {
