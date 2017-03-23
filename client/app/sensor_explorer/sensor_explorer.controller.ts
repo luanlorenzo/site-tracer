@@ -49,7 +49,8 @@
     }
 
     $onInit() {
-      
+      var totalWidth = $('#chart_area').parent().width();
+      $('#chart_area').width(totalWidth);
     }
 
     openCalendar(e, date) {
