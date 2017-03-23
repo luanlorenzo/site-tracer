@@ -75,10 +75,10 @@
 
         var _data = [];
         for (let i = (this.sensor_data.length - 1); i >= 0 ; i--) {
-            _data.push(this.sensor_data[i].value);
+            _data.push(this.sensor_data[i].value2);
             if(this.sensor.idSensor == 100)
             {
-              this.labels.push(this.sensor_data[i].value2);
+              this.labels.push(this.sensor_data[i].value);
             }
             else
             {
