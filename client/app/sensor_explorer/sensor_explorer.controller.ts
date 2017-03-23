@@ -50,7 +50,8 @@
 
     $onInit() {
       var totalWidth = $('#chart_area').parent().width();
-      $('#chart_area').width(totalWidth);
+      $('#chart_area').css('width', totalWidth);
+      console.log(totalWidth);
     }
 
     openCalendar(e, date) {
